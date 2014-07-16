@@ -169,7 +169,7 @@ XML mapping file
         {
             $builder
                 //... stuff
-                ->add('tags', 'wbf_tag')
+                ->add('tags', 'dcs_tag')
             ;
         }
     }
