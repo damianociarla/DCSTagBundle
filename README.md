@@ -176,4 +176,13 @@ XML mapping file
 
 ## 6) How to save tags
 
-You don't need to have a Tag model manager to persist the Entity because it's already managed by Doctrine.
+If you use the form you don't need the Tag model manager (`dcs_tag.manager`) to persist the entity because it's already managed by DataTransformer, but if you want manually add a single tag to a collection, you can use the following code:
+
+    $tagManager = $this->container->get('dcs_tag.manager');
+
+    $post = new Post();
+    $post->addTag($tagManager->add('tag-to-add'));
+
+    //... persist the post object
+
+The `add` method inserts a new tag, if already doesn’t exists, otherwise it returns the found tag.

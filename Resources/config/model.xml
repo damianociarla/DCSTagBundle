@@ -5,14 +5,13 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="dcs_tag.model.manager.default.class">DCS\TagBundle\Doctrine\TagManager</parameter>
+        <parameter key="dcs_tag.model.manager.class">DCS\TagBundle\Model\ModelManager</parameter>
     </parameters>
 
     <services>
-        <service id="dcs_tag.model.manager.default" class="%dcs_tag.model.manager.default.class%" parent="dcs_tag.model.manager">
-            <call method="setManager">
-                <argument type="service" id="doctrine.orm.entity_manager" />
-            </call>
+        <service id="dcs_tag.model.manager" class="%dcs_tag.model.manager.class%" abstract="true">
+            <argument>%dcs_tag.model.class%</argument>
+            <argument type="service" id="dcs_tag.urlizer" />
         </service>
     </services>
 </container>

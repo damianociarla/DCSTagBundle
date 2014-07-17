@@ -3,8 +3,6 @@
 namespace DCS\TagBundle\Form\DataTransformer;
 
 use DCS\TagBundle\Model\ModelManagerInterface;
-use DCS\TagBundle\Model\TagInterface;
-use DCS\TagBundle\Urlizer\UrlizerInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\DataTransformerInterface;
@@ -13,25 +11,13 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 class TextToArrayTagTransformer implements DataTransformerInterface
 {
     /**
-     * @var \DCS\TagBundle\Model\ObjectManager
+     * @var \DCS\TagBundle\Model\ModelManagerInterface
      */
     protected $manager;
 
-    /**
-     * @var \DCS\TagBundle\Urlizer\UrlizerInterface
-     */
-    protected $urlizer;
-
-    /**
-     * @var string
-     */
-    protected $modelClass;
-
-    function __construct(ModelManagerInterface $modelManager, UrlizerInterface $urlizer, $modelClass)
+    function __construct(ModelManagerInterface $modelManager)
     {
-        $this->manager = $modelManager->getManager();
-        $this->urlizer = $urlizer;
-        $this->modelClass = $modelClass;
+        $this->manager = $modelManager;
     }
 
     public function transform($value)
@@ -61,23 +47,7 @@ class TextToArrayTagTransformer implements DataTransformerInterface
         $tags = new ArrayCollection();
 
         foreach ($values as $value) {
-            $modelClass = $this->modelClass;
-
-            /** @var $tag TagInterface */
-            $tag = new $modelClass();
-            $tag->setName($value);
-            $tag->setCode($this->urlizer->urlize($value, '_'));
-            $tag->setSlug($this->urlizer->urlize($value, '-'));
-
-            $persistedTag = $this->manager->getRepository($modelClass)->findOneBy(array(
-                'code' => $tag->getCode(),
-            ));
-
-            if (null !== $persistedTag) {
-                $tag = $persistedTag;
-            }
-
-            $tags->add($tag);
+            $tags->add($this->manager->add($value));
         }
 
         return $tags;

@@ -15,9 +15,7 @@
             <tag name="form.type" alias="dcs_tag" />
         </service>
         <service id="dcs_tag.form.data_transformer" class="%dcs_tag.form.data_transformer.class%">
-            <argument type="service" id="dcs_tag.model.manager" />
-            <argument type="service" id="dcs_tag.urlizer" />
-            <argument>%dcs_tag.model.class%</argument>
+            <argument type="service" id="dcs_tag.manager" />
         </service>
     </services>
 </container>
