@@ -153,7 +153,7 @@ XML mapping file
         }
     }
 
-## 5) Use the "uec_tag" form type
+## 5) Use the "dcs_tag" form type
 
     <?php
     // src/Acme/BlogBundle/Form/Type/PostFormType.php
