@@ -5,7 +5,7 @@ namespace DCS\TagBundle\Model;
 abstract class Tag implements TagInterface
 {
     /**
-     * @var int
+     * @var mixed
      */
     protected $id;
 
@@ -27,7 +27,7 @@ abstract class Tag implements TagInterface
     /**
      * Get id
      *
-     * @return integer
+     * @return mixed
      */
     public function getId()
     {

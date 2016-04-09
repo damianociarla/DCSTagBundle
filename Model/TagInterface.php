@@ -7,7 +7,7 @@ interface TagInterface
     /**
      * Get id
      *
-     * @return integer
+     * @return mixed
      */
     public function getId();
 
